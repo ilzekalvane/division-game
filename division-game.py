@@ -17,7 +17,7 @@ usage = ("Calculates the NIM row of the given division game saves it in the file
 "\n\t-t type of data:"
 "\n\t\tkey: only key positions, where the NIM value changes (default)"
 "\n\t\tall: all positions"
-"\n\t-p plot directory, defaults to './plots/<mode>-<end-position>/', file name generated automatically: 'plt-d<denumeratotrs><mode><end-position>-n=<length>.dat'"
+"\n\t-p plot directory, defaults to './plots/<mode>-<end-position>/', file name generated automatically: 'plt-d<denumeratotrs><mode><end-position>-n=<length>.pdf'"
 ) % sys.argv[0]
 
 try:
