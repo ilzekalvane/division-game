@@ -99,7 +99,7 @@ class divisionGame(object):
 		os.system('pdfcrop ' + filename + '.pdf ' + filename + '.pdf')
 		os.system('nohup evince ' + filename + '.pdf > /dev/null &')
 		
-	def saveNimRow(self, n, mode = "key", directory = ''):
+	def saveNimRow(self, n, struct = "key", directory = ''):
 		'''
 			Saves NIM row in a file
 			If mode == all, saves full row
@@ -107,9 +107,9 @@ class divisionGame(object):
 			If self.nims is empty calls self.nimRow()
 			If value of directory is not set, uses ./data/<self.mode>-<self.ends>/
 		'''
-		if mode != "all" and mode != "key":
-			print("Invalid mode at saveNimRow(), allowed 'all' vai 'key'")
-			raise Exception('saveNimRow: mode (', mode, ')')
+		if struct != "all" and struct != "key":
+			print("Invalid struct at saveNimRow(), allowed 'all' vai 'key'")
+			raise Exception('saveNimRow: struct (', mode, ')')
 
 		if len(directory) < 1:
 			directory = './data/' + str(self.mode) + '-' + str(self.ends) + '/'
@@ -128,10 +128,10 @@ class divisionGame(object):
 		prevNim = None
 		lines = 0
 		for i in range(n+1):
-			if mode == "key" and prevNim != self.nims[i]:
+			if struct == "key" and prevNim != self.nims[i]:
 				ptr.write(str(i) + " " + str(self.nims[i]) + "\n")
 				lines += 1
-			elif mode == "all":
+			elif struct == "all":
 				ptr.write(str(i) + " " + str(self.nims[i]) + "\n")
 				lines += 1
 			prevNim = self.nims[i]
