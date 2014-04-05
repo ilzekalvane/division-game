@@ -21,7 +21,7 @@ usage = ("Calculates the NIM row of the given division game saves it in the file
 ) % sys.argv[0]
 
 try:
-	myopts, args = getopt.getopt(sys.argv[1:],"d:n:m:e:f:t")
+	myopts, args = getopt.getopt(sys.argv[1:],"hd:n:m:e:f:t", ["help"])
 except getopt.GetoptError as e:
 	print (str(e))
 	print(usage)
@@ -29,7 +29,10 @@ except getopt.GetoptError as e:
 
 def main():
 	for opt, arg in myopts:
-		if opt == '-d': # dalītāji
+		if opt in ("-h", "--help"):
+			print(usage)
+			sys.exit()
+		elif opt == '-d': # dalītāji
 			try:
 				denums = re.split(',', arg)
 			except Exception as e:
