@@ -83,7 +83,7 @@ class divisionGame(object):
 			except Exception as e:
 				print("Error: " + str(e))
 
-		filename = directory + 'plt-d' + str(self.denums).replace('[','').replace(']','').replace(' ','').replace(',','') + str(self.mode) + str(self.ends) + '-n=' + str(n) + ''
+		filename = directory + 'plt-d' + str(self.denums).replace('[','').replace(']','').replace(' ','').replace(',',':') + str(self.mode) + str(self.ends) + '-n=' + str(n) + ''
 		
 		if len(self.nims) < 1:
 			self.nimRow(n)
@@ -119,7 +119,7 @@ class divisionGame(object):
 			except Exception as e:
 				print("Error: " + str(e))
 
-		filename = directory + 'data-d' + str(self.denums).replace('[','').replace(']','').replace(' ','').replace(',','') + str(self.mode) + str(self.ends) + '-n=' + str(n) + '.dat'
+		filename = directory + 'data-d' + str(self.denums).replace('[','').replace(']','').replace(' ','').replace(',',':') + str(self.mode) + str(self.ends) + '-n=' + str(n) + '.dat'
 		
 		if len(self.nims) < 1:
 			self.nimRow(n)
@@ -138,5 +138,43 @@ class divisionGame(object):
 		ptr.close()
 		print(str(lines) + " lines with NIM values written to " + filename)
 	
-	
+	def saveTexRow(self, n, directory = ''):
+		'''
+			Saves NIM row in a TeX format
+			If self.nims is empty calls self.nimRow()
+			If value of directory is not set, uses ./data/<self.mode>-<self.ends>/
+		'''
+		if len(directory) < 1:
+			directory = './tex/' + str(self.mode) + '-' + str(self.ends) + '/'
+		if not os.path.exists(directory):
+			try:
+				os.makedirs(directory)
+			except Exception as e:
+				print("Error: " + str(e))
+
+		filename = directory + 'tex-d' + str(self.denums).replace('[','').replace(']','').replace(' ','').replace(',',':') + str(self.mode) + str(self.ends) + '-n=' + str(n) + '.tex'
+		
+		if len(self.nims) < 1:
+			self.nimRow(n)
+
+		prevNim = None
+		lines = 0
+		pos = ['$n$']
+		vals = ['$SG(n)$']
+		defs = ['r']
+		for i in range(n+1):
+			#ptr.write(str(i) + " " + str(self.nims[i]) + "\n")
+			if prevNim != self.nims[i]:
+				pos.append(str(i))
+				vals.append(str(self.nims[i]))
+				defs.append('c')
+				lines += 1
+			prevNim = self.nims[i]
+		ptr = open(filename, 'w')
+		ptr.write("\\begin{tabular}{" + "|".join(defs) + "}" + "\n")
+		ptr.write("\t" + " & ".join(pos) + "\\\\\\hline\n")
+		ptr.write("\t" + " & ".join(vals) + "\n")
+		ptr.write("\\end{tabular}")
+		ptr.close()
+		print(str(lines) + " cols with NIM values written to " + filename)
 

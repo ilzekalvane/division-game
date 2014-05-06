@@ -3,4 +3,5 @@
 __pycache__
 plots
 data
+tex
 .gitignore~

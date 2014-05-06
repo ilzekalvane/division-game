@@ -141,6 +141,7 @@ def main():
 	game.nimRow(n)
 	game.plotNimRow(n, plotDirectory)
 	game.saveNimRow(n, dataMode, dataDirectory)
+	game.saveTexRow(n)
 		
 	
 if __name__ == "__main__":
